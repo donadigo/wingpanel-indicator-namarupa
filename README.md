@@ -1,5 +1,8 @@
-# Wingpanel Ayatana-Compatibility Indicator
-[![l10n](https://l10n.elementary.io/widgets/wingpanel/wingpanel-indicator-ayatana/svg-badge.svg)](https://l10n.elementary.io/projects/wingpanel/wingpanel-indicator-ayatana)
+# Wingpanel Namarupa Indicator
+
+## Name Inspiration
+
+The name Namarupa is used for the forces at play that govern the Ayatana, in Buddhism. Since this indicator manages the system tray icons which are under the Ayatana project, it seems clever to name this Namarupa.
 
 ## Building and Installation
 
