@@ -12,18 +12,20 @@ add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi
 
 wingpanel_dep = dependency('wingpanel-2.0')
 
+indicator_dir_cmd = run_command('pkg-config', 'indicator3-0.4', '--variable=indicatordir')
+if indicator_dir_cmd.returncode() != 0
+  message ('Indicator directory not found')
+endif
+
+indicator_dir = indicator_dir_cmd.stdout().strip()
+
 # Other configs
 conf = configuration_data()
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-conf
+conf.set_quoted('AYANATAINDICATORDIR', indicator_dir)
 add_global_arguments('-DDATADIR="' + get_option('datadir') + '"', language: 'c')
 configure_file(output: 'config.h', configuration: conf)
 config_h_dir = include_directories('.')
-
-# Find libindicator
-cc = meson.get_compiler('c')
-libindicator3 = cc.find_library('libindicator3', required: true)
-libindicator = cc.find_library('libindicator', required: true)
 
 # Arguments for C
 c_args = [
@@ -47,12 +49,10 @@ shared_module(
         dependency('granite'),
         dependency('gtk+-3.0'),
         wingpanel_dep,
-        libindicator,
-        libindicator3
+        dependency('indicator3-0.4')
     ],
     vala_args: [
-        meson.source_root() + '/vapi/config.vapi',
-        meson.source_root() + '/vapi/indicator3-0.4.vapi'
+        meson.source_root() + '/vapi/config.vapi'
     ],
     install: true,
     install_dir : wingpanel_dep.get_pkgconfig_variable('indicatorsdir')
