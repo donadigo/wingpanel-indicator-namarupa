@@ -8,7 +8,6 @@ The name Namarupa is used for the forces at play that govern the Ayatana, in Bud
 
 You'll need the following dependencies:
 
-* cmake
 * gobject-introspection
 * libglib2.0-dev
 * libgranite-dev
@@ -16,16 +15,15 @@ You'll need the following dependencies:
 * libwingpanel-2.0-dev
 * valac
 
-It's recommended to create a clean build environment
+Run meson to configure the build environment and then ninja to build:
 
-    mkdir build
-    cd build/
-    
-Run `cmake` to configure the build environment and then `make` to build
+```bash
+meson build --prefix=/usr && cd build
+ninja
+```
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-    make
-    
-To install, use `make install`
+To install, use ninja install:
 
-    sudo make install
+```bash
+sudo ninja install
+```
