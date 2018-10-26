@@ -28,9 +28,7 @@ public class AyatanaCompatibility.IndicatorButton : Gtk.EventBox {
     construct {
         box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         //  set_orientation (Gtk.Orientation.HORIZONTAL);
-        box.set_homogeneous (false);
-
-        box.get_style_context ().add_class ("composited-indicator");
+        box.set_homogeneous (true);
         add (box);
     }
 
@@ -48,7 +46,6 @@ public class AyatanaCompatibility.IndicatorButton : Gtk.EventBox {
 
         if (old_widget != null) {
             box.remove (old_widget);
-            old_widget.get_style_context ().remove_class ("composited-indicator");
         }
 
         // Workaround for buggy indicators: Some widgets may still be part of a previous entry
@@ -57,14 +54,12 @@ public class AyatanaCompatibility.IndicatorButton : Gtk.EventBox {
         if (parent != null)
             parent.remove (widget);
 
-        widget.get_style_context ().add_class ("composited-indicator");
-
         if (slot == WidgetSlot.LABEL) {
             the_label = widget;
             box.pack_end (the_label, false, false, 0);
         } else if (slot == WidgetSlot.IMAGE) {
             the_image = widget;
             box.pack_start (the_image, false, false, 0);
-        } 
+        }
     }
 }

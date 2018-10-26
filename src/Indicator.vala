@@ -18,7 +18,8 @@
 public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gee.HashSet<string> blacklist;
     private IndicatorFactory indicator_loader;
-    private Gtk.FlowBox flow_box;
+    private Gtk.Box box;
+    private Gtk.Box? main_box = null;
 
     public MetaIndicator () {
         Object (code_name: "namarupa",
@@ -58,15 +59,15 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
         get_widget ();
 
-        flow_box.add (indicator);
-        flow_box.show_all ();
+        box.add (indicator);
+        box.show_all ();
     }
 
     private void delete_entry (Indicator indicator) {
         get_widget ();
 
-        foreach (var fbc in flow_box.get_children ()) {
-            var child = ((Gtk.FlowBoxChild)fbc).get_child ();
+        foreach (var fbc in box.get_children ()) {
+            var child = (Gtk.Widget)fbc;
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
                 break;
@@ -75,12 +76,27 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     public override Gtk.Widget? get_widget () {
-        if (flow_box == null) {
-            flow_box = new Gtk.FlowBox ();
-            flow_box.margin = 6;
+        if (main_box == null) {
+            main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            main_box.set_size_request (200, -1);
+
+            if (box == null) {
+                box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+                box.margin = 6;
+                box.margin_start = 12;
+                box.set_spacing (10);
+            }
+
+            var settings_btn = new Gtk.ModelButton ();
+            settings_btn.text = _("Settings…");
+            //TODO: settings_btn.clicked.connect (show_settings);
+
+            main_box.add (box);
+            main_box.add (new Wingpanel.Widgets.Separator ());
+            main_box.add (settings_btn);
         }
 
-        return flow_box;
+        return main_box;
     }
 
     public override void opened () {

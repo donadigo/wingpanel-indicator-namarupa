@@ -35,7 +35,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
     private Gee.HashMap<Gtk.Widget, Gtk.Widget> menu_map;
 
-    const int MAX_ICON_SIZE = 24;
+    const int MAX_ICON_SIZE = 22;
 
     public Indicator (IndicatorAyatana.ObjectEntry entry, IndicatorAyatana.Object obj, IndicatorIface indicator) {
         string name_hint = entry.name_hint;
@@ -106,7 +106,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
     //      if (icon == null) {
     //          icon = new IndicatorButton ();
 
-            
+
     //      }
 
     //      return icon;
