@@ -19,6 +19,8 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gee.HashSet<string> blacklist;
     private IndicatorFactory indicator_loader;
     private Gtk.Box box;
+    private Gtk.Label label;
+    private Gtk.Stack stack;
     private Gtk.Box? main_box = null;
 
     public MetaIndicator () {
@@ -58,13 +60,15 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         }
 
         get_widget ();
-
         box.add (indicator);
+        switch_stack (true);
         box.show_all ();
     }
 
     private void delete_entry (Indicator indicator) {
         get_widget ();
+
+        switch_stack (false);
 
         foreach (var fbc in box.get_children ()) {
             var child = (Gtk.Widget)fbc;
@@ -80,18 +84,31 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_box.set_size_request (200, -1);
 
-            if (box == null) {
-                box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-                box.margin = 6;
-                box.margin_start = 12;
-                box.set_spacing (10);
-            }
+            label = new Gtk.Label ("No tray icons…");
+            label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+            label.sensitive = false;
+            label.valign = Gtk.Align.CENTER;
+            label.margin_top = label.margin_bottom = 12;
+            label.margin_start = label.margin_end = 6;
+            label.show_all ();
+
+            box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            box.margin = 6;
+            box.margin_start = 12;
+            box.set_spacing (10);
+
+            stack = new Gtk.Stack ();
+            stack.hexpand = true;
+            stack.add_named (box, "box");
+            stack.add_named (label, "label");
+            main_box.add (stack);
+
+            switch_stack (false);
 
             var settings_btn = new Gtk.ModelButton ();
             settings_btn.text = _("Settings…");
             //TODO: settings_btn.clicked.connect (show_settings);
 
-            main_box.add (box);
             main_box.add (new Wingpanel.Widgets.Separator ());
             main_box.add (settings_btn);
         }
@@ -99,14 +116,15 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         return main_box;
     }
 
-    public override void opened () {
-        var box = get_widget ().get_parent ();
-        if (box != null) {
-            var popover = box.get_parent ();
-            if (popover != null) {
-                popover.width_request = 0;
-            }
+    private void switch_stack (bool show) {
+        if (show == true) {
+            stack.set_visible_child_name ("box");
+        } else {
+            stack.set_visible_child_name ("label");
         }
+    }
+
+    public override void opened () {
     }
 
     public override void closed () {

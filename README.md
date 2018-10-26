@@ -1,5 +1,7 @@
 # ![icon](data/icon.png) Wingpanel Namarupa Indicator
 
+![Screenshot](data/shot.png)
+
 ## Name Inspiration
 
 The name Namarupa is used for the forces at play that govern the Ayatana, in Buddhism. Since this indicator manages the system tray icons which are under the Ayatana project, it seems clever to name this Namarupa.
