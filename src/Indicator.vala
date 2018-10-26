@@ -61,8 +61,9 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
         get_widget ();
         box.add (indicator);
-        switch_stack (true);
         box.show_all ();
+
+        switch_stack (true);
     }
 
     private void delete_entry (Indicator indicator) {
