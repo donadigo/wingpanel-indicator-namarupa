@@ -1,4 +1,4 @@
-# Wingpanel Namarupa Indicator
+# ![icon](data/icon.png) Wingpanel Namarupa Indicator
 
 ## Name Inspiration
 

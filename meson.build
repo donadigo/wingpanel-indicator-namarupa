@@ -5,7 +5,7 @@ project(
 )
 
 i18n = import('i18n')
-gettext_name = 'wingpanel-indicator-' + meson.project_name()
+gettext_name = meson.project_name() + '-indicator'
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format(gettext_name), language:'c')
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')

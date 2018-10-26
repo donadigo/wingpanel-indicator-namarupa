@@ -21,8 +21,8 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gtk.FlowBox flow_box;
 
     public MetaIndicator () {
-        Object (code_name: "ayatana_compatibility",
-                display_name: _("Ayatana Compatibility"),
+        Object (code_name: "namarupa",
+                display_name: _("Namarupa"),
                 description:_("Ayatana Compatibility Meta Indicator"));
 
         load_blacklist ();
@@ -37,7 +37,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     public override Gtk.Widget get_display_widget () {
-        return new Gtk.Image.from_icon_name ("content-loading-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        return new Gtk.Image.from_icon_name ("view-more-horizontal-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
     }
 
     private void load_indicator (IndicatorIface indicator) {
