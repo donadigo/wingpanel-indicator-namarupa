@@ -4,7 +4,12 @@
 
 The name Namarupa is used for the forces at play that govern the Ayatana, in Buddhism. Since this indicator manages the system tray icons which are under the Ayatana project, it seems clever to name this Namarupa.
 
-## Building and Installation
+## Installation
+### For users
+
+You'll need the latest debian file (.deb) in our releases tab (TBD) and [this patched indicator-applications debian file](https://github.com/mdh34/elementary-indicators/releases), both installed.
+
+### For developers
 
 You'll need the following dependencies:
 
