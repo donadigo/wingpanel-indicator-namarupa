@@ -141,6 +141,17 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         return restrictions;
     }
 
+    // TODO: Plug for Namarupa.
+    /*private void show_settings () {
+        close ();
+
+        try {
+            AppInfo.launch_default_for_uri ("settings://namarupa", null);
+        } catch (Error e) {
+            warning ("Failed to open notifications settings: %s", e.message);
+        }
+    }*/
+
 }
 
 public Wingpanel.Indicator? get_indicator (Module module, Wingpanel.IndicatorManager.ServerType server_type) {
