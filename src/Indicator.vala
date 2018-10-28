@@ -31,7 +31,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         load_blacklist ();
         indicator_loader = new IndicatorFactory ();
 
-        this.visible = true;
+        visible = true;
         var indicators = indicator_loader.get_indicators ();
 
         foreach (var indicator in indicators) {
@@ -118,7 +118,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     private void switch_stack (bool show) {
-        if (show == true) {
+        if (show) {
             stack.set_visible_child_name ("box");
         } else {
             stack.set_visible_child_name ("label");

@@ -27,22 +27,18 @@ public class AyatanaCompatibility.IndicatorButton : Gtk.EventBox {
 
     construct {
         box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        //  set_orientation (Gtk.Orientation.HORIZONTAL);
         box.set_homogeneous (true);
         add (box);
-    }
-
-    public IndicatorButton () {
-
     }
 
     public void set_widget (WidgetSlot slot, Gtk.Widget widget) {
         Gtk.Widget old_widget = null;
 
-        if (slot == WidgetSlot.LABEL)
+        if (slot == WidgetSlot.LABEL) {
             old_widget = the_label;
-        else if (slot == WidgetSlot.IMAGE)
+        } else if (slot == WidgetSlot.IMAGE) {
             old_widget = the_image;
+        }
 
         if (old_widget != null) {
             box.remove (old_widget);
@@ -51,8 +47,9 @@ public class AyatanaCompatibility.IndicatorButton : Gtk.EventBox {
         // Workaround for buggy indicators: Some widgets may still be part of a previous entry
         // if their old parent hasn't been removed from the panel yet.
         var parent = widget.parent;
-        if (parent != null)
+        if (parent != null) {
             parent.remove (widget);
+        }
 
         if (slot == WidgetSlot.LABEL) {
             the_label = widget;

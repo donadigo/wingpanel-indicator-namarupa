@@ -16,12 +16,21 @@
  */
 
 public class AyatanaCompatibility.SubMenuButton : Gtk.Button {
-    private Gtk.Label button_label;
+    public string caption {
+        get {
+            return button_label.get_label ();
+        }
 
+        set {
+            button_label.set_label (Markup.escape_text (value));
+        }
+    }
+
+    private Gtk.Label button_label;
     private new Gtk.Image image;
 
-    public SubMenuButton (string caption) {
-        this.hexpand = true;
+    construct {
+        hexpand = true;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.hexpand = true;
@@ -39,12 +48,13 @@ public class AyatanaCompatibility.SubMenuButton : Gtk.Button {
         } catch (Error e) {
             warning (e.message);
         }
+
         image.margin_end = 6;
 
         box.add (button_label);
         box.pack_end (image);
 
-        this.add (box);
+        add (box);
 
         var style_context = this.get_style_context ();
         style_context.add_class (Gtk.STYLE_CLASS_MENUITEM);
@@ -52,11 +62,7 @@ public class AyatanaCompatibility.SubMenuButton : Gtk.Button {
         style_context.remove_class ("text-button");
     }
 
-    public void set_caption (string caption) {
-        button_label.set_label (Markup.escape_text (caption));
-    }
-
-    public string get_caption () {
-        return button_label.get_label ();
+    public SubMenuButton (string caption) {
+        this.caption = caption;
     }
 }

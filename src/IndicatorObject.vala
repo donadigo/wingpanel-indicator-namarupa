@@ -17,23 +17,21 @@
 
 public class AyatanaCompatibility.IndicatorObject : Object, IndicatorIface {
     private IndicatorAyatana.Object object;
-    private Gee.HashMap<unowned IndicatorAyatana.ObjectEntry, Indicator> entries;
     private string name;
+    private Gee.HashMap<unowned IndicatorAyatana.ObjectEntry, Indicator> entries;
+
+    construct {
+        entries = new Gee.HashMap<unowned IndicatorAyatana.ObjectEntry, Indicator> ();
+    }
 
     public IndicatorObject (IndicatorAyatana.Object object, string name) {
         this.object = object;
         this.name = name;
 
-        entries = new Gee.HashMap<unowned IndicatorAyatana.ObjectEntry, Indicator> ();
-
         load_entries ();
 
         object.entry_added.connect (on_entry_added);
         object.entry_removed.connect (on_entry_removed);
-    }
-
-    public string get_name () {
-        return name;
     }
 
     public Gee.Collection<Indicator> get_entries () {
@@ -43,15 +41,16 @@ public class AyatanaCompatibility.IndicatorObject : Object, IndicatorIface {
     private void load_entries () {
         List<unowned IndicatorAyatana.ObjectEntry> list = object.get_entries ();
 
-        foreach (var entry in list)
-            entries.set (entry, create_entry (entry));
+        foreach (var entry in list) {
+            entries[entry] = create_entry (entry);
+        }
     }
 
     private void on_entry_added (IndicatorAyatana.Object object, IndicatorAyatana.ObjectEntry entry) {
         assert (this.object == object);
 
         var entry_widget = create_entry (entry);
-        entries.set (entry, entry_widget);
+        entries[entry] = entry_widget;
 
         entry_added (entry_widget);
     }
@@ -59,7 +58,7 @@ public class AyatanaCompatibility.IndicatorObject : Object, IndicatorIface {
     private void on_entry_removed (IndicatorAyatana.Object object, IndicatorAyatana.ObjectEntry entry) {
         assert (this.object == object);
 
-        var entry_widget = entries.get (entry);
+        var entry_widget = entries[entry];
 
         if (entry_widget != null) {
             entries.unset (entry);
@@ -72,5 +71,4 @@ public class AyatanaCompatibility.IndicatorObject : Object, IndicatorIface {
     private Indicator create_entry (IndicatorAyatana.ObjectEntry entry) {
         return new Indicator (entry, object, this);
     }
-
 }

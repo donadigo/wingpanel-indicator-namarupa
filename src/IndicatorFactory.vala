@@ -18,9 +18,6 @@
 public class AyatanaCompatibility.IndicatorFactory : Object, IndicatorLoader {
     private Gee.Collection<IndicatorIface> indicators;
 
-    public IndicatorFactory () {
-    }
-
     public Gee.Collection<IndicatorIface> get_indicators () {
         if (indicators == null) {
             indicators = new Gee.LinkedList<IndicatorIface> ();
@@ -32,19 +29,19 @@ public class AyatanaCompatibility.IndicatorFactory : Object, IndicatorLoader {
 
     private void load_indicator (File parent_dir, string name) {
         string indicator_path = parent_dir.get_child (name).get_path ();
-        if (!File.new_for_path (indicator_path).query_exists ()) {
+        if (!FileUtils.test (indicator_path, FileTest.EXISTS)) {
             debug ("No ayatana support possible because there is no Indicator Library: %s", name);
             return;
         }
-        IndicatorAyatana.Object indicator = null;
 
         debug ("Loading Indicator Library: %s", name);
-        indicator = new IndicatorAyatana.Object.from_file (indicator_path);
+        var indicator = new IndicatorAyatana.Object.from_file (indicator_path);
 
-        if (indicator != null)
+        if (indicator != null) {
             indicators.add (new IndicatorObject (indicator, name));
-        else
+        } else {
             debug ("Unable to load %s: invalid object.", name);
+        }
 
     }
 }
