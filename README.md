@@ -22,6 +22,10 @@ You'll need the following dependencies:
 * libwingpanel-2.0-dev
 * valac
 
+```bash
+sudo apt install gobject-introspection libglib2.0-dev libgranite-dev libindicator3-dev libwingpanel-2.0-dev valac
+```
+
 Run meson to configure the build environment and then ninja to build:
 
 ```bash
