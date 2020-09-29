@@ -7,13 +7,16 @@
 The name Namarupa is used for the forces at play that govern the Ayatana, in Buddhism. Since this indicator manages the system tray icons which are under the Ayatana project, it seems clever to name this Namarupa.
 
 ## Installation
-### For users
 
-You'll need the latest debian file (.deb) in our releases tab (TBD) and [this patched indicator-applications debian file](https://github.com/mdh34/elementary-indicators/releases), both installed.
+1. You need to add Pantheon to the list of desktops abled to work with indicators:
+<pre>sudo nano /etc/xdg/autostart/indicator-application.desktop</pre>
+Search the parameter: OnlyShowIn= and add "Pantheon" at the end of the line : 
+<pre>OnlyShowIn=Unity;GNOME;Pantheon;</pre>
+Save your changes (Ctrl+X to quit + Y(es) save the changes + Enter to valid the filename).<br/>
 
-### For developers
+2.<b>reboot</b>.
 
-You'll need the following dependencies:
+3.You'll need the following dependencies:
 
 * gobject-introspection
 * libglib2.0-dev
@@ -26,14 +29,13 @@ You'll need the following dependencies:
 sudo apt install gobject-introspection libglib2.0-dev libgranite-dev libindicator3-dev libwingpanel-2.0-dev valac
 ```
 
-Run meson to configure the build environment and then ninja to build:
+4.Run meson to configure the build environment and then ninja to build:
 
 ```bash
 meson build --prefix=/usr && cd build
-ninja
 ```
 
-To install, use ninja install:
+5.To install, use ninja install:
 
 ```bash
 sudo ninja install
