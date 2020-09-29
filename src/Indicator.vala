@@ -106,12 +106,12 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
             switch_stack (false);
 
-            var settings_btn = new Gtk.ModelButton ();
-            settings_btn.text = _("Settings…");
+            // TODO: var settings_btn = new Gtk.ModelButton ();
+            // TODO: settings_btn.text = _("Settings…");
             //TODO: settings_btn.clicked.connect (show_settings);
 
-            main_box.add (new Wingpanel.Widgets.Separator ());
-            main_box.add (settings_btn);
+            // TODO: main_box.add (new Wingpanel.Widgets.Separator ());
+            // TODO: main_box.add (settings_btn);
         }
 
         return main_box;
