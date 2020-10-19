@@ -16,6 +16,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
+/*NAMARUPA */
 
 public class AyatanaCompatibility.Indicator : IndicatorButton {
     public string code_name { get; construct; }
@@ -102,6 +103,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
         this.visible = true;
     }
 
+	//icon directly on the panel 
     //  public override Gtk.Widget get_display_widget () {
     //      if (icon == null) {
     //          icon = new IndicatorButton ();
@@ -145,8 +147,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                      * the menu is popuped
                      */
                     reloaded = true;
-                    entry.menu.popup (null, null, null, 0, Gtk.get_current_event_time ());
-                    entry.menu.popdown ();
+                    entry.menu.popup_at_widget (icon.parent,  0, 0);        //entry.menu.popdown ();
                 }
 
                 return Gdk.EVENT_PROPAGATE;
@@ -220,8 +221,8 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             button.no_show_all = true;
             button.hide ();
         });
-        item.state_changed.connect ((type) => {
-            button.set_state (item.get_state ());
+        item.state_flags_changed.connect ((type) => {
+            button.set_state_flags (item.get_state_flags (),true);
         });
     }
 
@@ -249,7 +250,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
         atk.get_property ("accessible_role", ref val);
         var item_type = val.get_int ();
 
-        var state = item.get_state ();
+        var state = item.get_state_flags ();
         var active = (item as Gtk.CheckMenuItem).get_active ();
 
         /* detect if it has a image */
@@ -272,11 +273,11 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
                 return false;
             });
-            button.set_state (state);
+            button.set_state_flags (state,false);
 
             connect_signals (item, button);
             (item as Gtk.CheckMenuItem).toggled.connect (() => {
-                button.set_active ((item as Gtk.CheckMenuItem).get_active ());
+                button.active =((item as Gtk.CheckMenuItem).get_active ());
             });
 
             return button;
@@ -284,7 +285,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
         /* convert menuitem to a indicatorbutton */
         if (item is Gtk.MenuItem) {
-            Gtk.Button button;
+            Gtk.ModelButton button;
 
             if (image != null && image.pixbuf == null && image.icon_name != null) {
                 try {
@@ -294,18 +295,16 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                     warning (e.message);
                 }
             }
-
+			button = new Gtk.ModelButton();
+			button.text=label;
             if (image != null && image.pixbuf != null) {
-                button = new Wingpanel.Widgets.Button (label);
-                (button as Wingpanel.Widgets.Button).set_pixbuf (image.pixbuf);
-            } else {
-                button = new Wingpanel.Widgets.Button (label);
-            }
+                (button as Gtk.ModelButton).icon= (image.pixbuf);
+            } 
             (item as Gtk.CheckMenuItem).notify["label"].connect (() => {
-                (button as Wingpanel.Widgets.Button).set_caption ((item as Gtk.MenuItem).get_label ().replace ("_", ""));
+                (button as Gtk.ModelButton).text = ((item as Gtk.MenuItem).get_label ().replace ("_", ""));
             });
 
-            button.set_state (state);
+            button.set_state_flags (state,true);
 
             var submenu = (item as Gtk.MenuItem).submenu;
 
@@ -315,13 +314,14 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 scroll_sub.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
                 var sub_stack = new Gtk.Grid ();
                 scroll_sub.add (sub_stack);
-                var back_button = new Wingpanel.Widgets.Button (_("Back"));
+                var back_button = new Gtk.ModelButton();
+				back_button.text=(_("Back"));
                 back_button.clicked.connect (() => {
                     main_stack.set_visible_child (main_grid);
                 });
                 sub_stack.attach (back_button, 0, pos++, 1, 1);
                 sub_stack.attach (new Wingpanel.Widgets.Separator (), 0, pos++, 1, 1);
-                submenu.popup (null, null, null, 0, Gtk.get_current_event_time ());
+                //submenu.popup (null, null, null, 0, Gtk.get_current_event_time ());
                 submenu.insert.connect ((sub_item) => {
                     var sub_menu_item = convert_menu_widget (sub_item);
 
@@ -331,9 +331,10 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                         sub_stack.attach (sub_menu_item, 0, pos++, 1, 1);
                     }
                 });
-                submenu.popdown ();
+                //submenu.popdown ();
                 main_stack.add (scroll_sub);
-                button = new SubMenuButton (label);
+                button = new Gtk.ModelButton();
+				button.text=label;
                 button.clicked.connect (() => {
                     main_stack.set_visible_child (scroll_sub);
                     main_stack.show_all ();
