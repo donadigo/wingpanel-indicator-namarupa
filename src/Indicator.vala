@@ -22,7 +22,8 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gtk.Label label;
     private Gtk.Stack stack;
     private Gtk.Box? main_box = null;
-
+	public int cpt=0; /* count indicators */
+	
     public MetaIndicator () {
         Object (code_name: "namarupa",
                 display_name: _("Namarupa"),
@@ -58,7 +59,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         if (blacklist.contains (indicator.name_hint ())) {
             return;
         }
-
+		cpt++;
         get_widget ();
         box.add (indicator);
         box.show_all ();
@@ -69,18 +70,19 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private void delete_entry (Indicator indicator) {
         get_widget ();
 
-        switch_stack (false);
-
         foreach (var fbc in box.get_children ()) {
             var child = (Gtk.Widget)fbc;
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
+                cpt--;
                 break;
             }
+        if (cpt==0) {switch_stack (false);}
         }
     }
 
     public override Gtk.Widget? get_widget () {
+		/*create an empty box with no entry */
         if (main_box == null) {
             main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_box.set_size_request (200, -1);
@@ -108,7 +110,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
             var settings_btn = new Gtk.ModelButton ();
             settings_btn.text = _("Settings…");
-            //TODO: settings_btn.clicked.connect (show_settings);
+            settings_btn.clicked.connect (show_settings);
 
             main_box.add (new Wingpanel.Widgets.Separator ());
             main_box.add (settings_btn);
@@ -118,6 +120,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     private void switch_stack (bool show) {
+		//switch between label no tray icon and box vue
         if (show) {
             stack.set_visible_child_name ("box");
         } else {
@@ -160,16 +163,25 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         return restrictions;
     }
 
-    // TODO: Plug for Namarupa.
-    /*private void show_settings () {
-        close ();
+    // TODO: Plug for Namarupa.  
+    private void show_settings () {
+		/* temporary used for informations */
+		var msg = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+        cpt.to_string() + " item(s)");
+		msg.set_title("Information");
+		msg.run();
+		msg.destroy();
+		
+		
+        //close ();
 
-        try {
+        /*try {
             AppInfo.launch_default_for_uri ("settings://namarupa", null);
         } catch (Error e) {
             warning ("Failed to open notifications settings: %s", e.message);
-        }
-    }*/
+        } */
+    }
 
 }
 
