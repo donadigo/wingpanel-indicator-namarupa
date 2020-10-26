@@ -59,8 +59,9 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         if (blacklist.contains (indicator.name_hint ())) {
             return;
         }
+		 if (main_box == null) {init_main_box();}
 		cpt++;
-        get_widget ();
+        //get_widget ();
         box.add (indicator);
         box.show_all ();
 
@@ -68,22 +69,23 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     private void delete_entry (Indicator indicator) {
-        get_widget ();
+        //get_widget ();
 
         foreach (var fbc in box.get_children ()) {
             var child = (Gtk.Widget)fbc;
+			//see what append when to indicators have the same name ? 
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
                 cpt--;
+				if (cpt==0) {switch_stack (false);}  
                 break;
             }
-        if (cpt==0) {switch_stack (false);}
         }
     }
 
-    public override Gtk.Widget? get_widget () {
+	  private Gtk.Box init_main_box () {
 		/*create an empty box with no entry */
-        if (main_box == null) {
+        
             main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_box.set_size_request (200, -1);
 
@@ -106,7 +108,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             stack.add_named (label, "label");
             main_box.add (stack);
 
-            switch_stack (false);
+            switch_stack (false); /* label */
 
             var settings_btn = new Gtk.ModelButton ();
             settings_btn.text = _("Settings…");
@@ -114,13 +116,18 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
             main_box.add (new Wingpanel.Widgets.Separator ());
             main_box.add (settings_btn);
-        }
+        
 
         return main_box;
+	}
+
+    public override Gtk.Widget? get_widget () {
+		if (main_box == null) {init_main_box();}
+		return main_box;
     }
 
     private void switch_stack (bool show) {
-		//switch between label no tray icon and box vue
+		//switch between label "no tray icon" and box vue
         if (show) {
             stack.set_visible_child_name ("box");
         } else {
@@ -168,7 +175,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 		/* temporary used for informations */
 		var msg = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
         Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
-        cpt.to_string() + " item(s)");
+        cpt.to_string() + " item(s) ");
 		msg.set_title("Information");
 		msg.run();
 		msg.destroy();
