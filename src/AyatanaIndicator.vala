@@ -39,6 +39,9 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
 	 const int MAX_ICON_SIZE = 22;
 
+	//group radiobuttons
+    private Gtk.RadioButton? group_radio=null ;
+	 
     public Indicator (IndicatorAyatana.ObjectEntry entry, IndicatorAyatana.Object obj, IndicatorIface indicator) {
         string name_hint = entry.name_hint;
         if (name_hint == null) {
@@ -237,6 +240,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
          * 34 = MENU_ITEM  8 = CHECKBOX  32 = SUBMENU 44 = RADIO
          */
 		const int ATK_CHECKBOX =8;
+		const int ATK_RADIO =44;
 		
         var atk = item.get_accessible ();
         Value val = Value (typeof (int));
@@ -246,6 +250,9 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
         var state = item.get_state_flags ();
         var active = (item as Gtk.CheckMenuItem).get_active ();
 
+		//RAZ group_radio
+       group_radio = ( item_type == ATK_RADIO)? group_radio:null;
+		
         /* detect if it has a image */
         Gtk.Image? image = null;
         var child = (item as Gtk.Bin).get_child ();
@@ -276,6 +283,29 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             return button;
         }
 
+		//RADIO BUTTON
+		if (item_type == ATK_RADIO) {
+					
+			var button= new Gtk.RadioButton.with_label_from_widget(group_radio,label);
+			if (group_radio==null) {group_radio=button;}
+			button.margin = 5;
+			button.set_margin_start(10);
+		    
+			button.set_active(active);
+			
+			//do not remove
+            button.clicked.connect (() => {
+                    item.activate ();
+                });
+			
+			button.activate.connect (() => {
+				item.activate();
+               (item as Gtk.RadioMenuItem).set_active (button.get_active());
+            });
+			
+			return button;
+		}
+		
         /* convert menuitem to a indicatorbutton */
         if (item is Gtk.MenuItem) {
             Gtk.ModelButton button;
@@ -354,7 +384,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 });
             } else {
                 button.clicked.connect (() => {
-                    //  close ();
+                    //close ();
                     item.activate ();
                 });
             }
