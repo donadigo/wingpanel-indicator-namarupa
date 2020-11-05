@@ -73,7 +73,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 
         foreach (var fbc in box.get_children ()) {
             var child = (Gtk.Widget)fbc;
-			//see what append when to indicators have the same name ? 
+			//see what append when two indicators have the same name ? 
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
                 cpt--;
@@ -93,19 +93,20 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
             label.sensitive = false;
             label.valign = Gtk.Align.CENTER;
-            label.margin_top = label.margin_bottom = 12;
+            label.margin_top = label.margin_bottom = 2;
             label.margin_start = label.margin_end = 6;
             label.show_all ();
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            box.margin = 6;
+		  	box.margin = 6;
             box.margin_start = 12;
             box.set_spacing (10);
-
+			
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.add_named (box, "box");
             stack.add_named (label, "label");
+            stack.get_style_context ().add_class (Gtk.STYLE_CLASS_SIDEBAR);
             main_box.add (stack);
 
             switch_stack (false); /* label */
@@ -174,14 +175,11 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private void show_settings () {
 		/* temporary used for informations */
 		var msg = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+        Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE,
         cpt.to_string() + " item(s) ");
 		msg.set_title("Information");
 		msg.run();
 		msg.destroy();
-		
-		
-        //close ();
 
         /*try {
             AppInfo.launch_default_for_uri ("settings://namarupa", null);
