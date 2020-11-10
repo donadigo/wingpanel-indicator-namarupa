@@ -148,6 +148,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         foreach (var entry in get_restrictions_from_file (blacklist_file)) {
             blacklist.add (entry);
         }
+		blacklist.add("nm-applet"); //old network indicator (duplicate)
     }
 
     private string[] get_restrictions_from_file (File file) {
@@ -174,12 +175,13 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     // TODO: Plug for Namarupa.  
     private void show_settings () {
 		/* temporary used for informations */
-		var msg = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
+		string msg= cpt.to_string() + " item(s) \n";
+		var msgdial = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
         Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE,
-        cpt.to_string() + " item(s) ");
-		msg.set_title("Information");
-		msg.run();
-		msg.destroy();
+        msg);
+		msgdial.set_title("Information");
+		msgdial.run();
+		msgdial.destroy(); //dialog without parent =>not perfectly closed
 
         /*try {
             AppInfo.launch_default_for_uri ("settings://namarupa", null);
