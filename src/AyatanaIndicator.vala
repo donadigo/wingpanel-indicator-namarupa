@@ -273,7 +273,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
                 return false;
             });
-            button.set_state_flags (state,false);
+            button.set_state_flags (state, false);
 
             connect_signals (item, button);
             (item as Gtk.CheckMenuItem).toggled.connect (() => {
