@@ -40,7 +40,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 	 const int MAX_ICON_SIZE = 22;
 
 	//group radiobuttons
-    private Gtk.RadioButton? group_radio=null ;
+    private Gtk.RadioButton? group_radio = null;
 	 
     public Indicator (IndicatorAyatana.ObjectEntry entry, IndicatorAyatana.Object obj, IndicatorIface indicator) {
         string name_hint = entry.name_hint;
