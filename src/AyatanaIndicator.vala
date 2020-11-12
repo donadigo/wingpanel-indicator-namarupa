@@ -277,7 +277,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
             connect_signals (item, button);
             (item as Gtk.CheckMenuItem).toggled.connect (() => {
-                button.active =((item as Gtk.CheckMenuItem).get_active ());
+                button.active = ((item as Gtk.CheckMenuItem).get_active ());
             });
 
             return button;
