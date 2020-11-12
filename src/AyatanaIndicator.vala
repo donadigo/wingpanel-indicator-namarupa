@@ -319,7 +319,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 }
             }
 			button = new Gtk.ModelButton();
-			button.text=label;
+			button.text = label;
             if (image != null && image.pixbuf != null) {
                 (button as Gtk.ModelButton).icon= (image.pixbuf);
             } 
