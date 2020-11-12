@@ -240,7 +240,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
          * 34 = MENU_ITEM  8 = CHECKBOX  32 = SUBMENU 44 = RADIO
          */
 		const int ATK_CHECKBOX = 8;
-		const int ATK_RADIO =44;
+		const int ATK_RADIO = 44;
 		
         var atk = item.get_accessible ();
         Value val = Value (typeof (int));
