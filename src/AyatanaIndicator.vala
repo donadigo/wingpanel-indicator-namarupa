@@ -338,9 +338,9 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 scroll_sub.add (sub_list);
 				
                 var back_button = new Gtk.ModelButton();
-				back_button.text=(_("Back"));
-				back_button.inverted=true;
-				back_button.menu_name="main_grid";
+		    back_button.text = (_("Back"));
+		    back_button.inverted = true;
+		    back_button.menu_name = "main_grid";
                 back_button.clicked.connect (() => {
                     main_stack.set_visible_child (main_grid);
                 });
