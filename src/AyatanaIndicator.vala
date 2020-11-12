@@ -251,7 +251,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
         var active = (item as Gtk.CheckMenuItem).get_active ();
 
 		//RAZ group_radio
-       group_radio = ( item_type == ATK_RADIO)? group_radio:null;
+       group_radio = (item_type == ATK_RADIO)? group_radio:null;
 		
         /* detect if it has a image */
         Gtk.Image? image = null;
