@@ -376,8 +376,8 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 main_stack.add (scroll_sub);
 				//Button opening the submenu
                 button = new Gtk.ModelButton();
-				button.text=label;
-				button.menu_name="submenu";
+		      button.text = label;
+		      button.menu_name = "submenu";
                 button.clicked.connect (() => {
                     main_stack.set_visible_child (scroll_sub);
                     main_stack.show_all ();
