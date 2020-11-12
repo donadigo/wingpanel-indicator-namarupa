@@ -364,14 +364,14 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                     }
                 });
 				
-				submenu.remove.connect ((item)=> {
-					var w = menu_map.get (item);
+		     submenu.remove.connect ((item) => {
+			 var w = menu_map.get (item);
 
-        			if (w != null) {
-            			sub_list.remove (w);
-            			submenu_map.unset (item);
-        			}	
-				});
+        		 if (w != null) {
+            		     sub_list.remove (w);
+            		     submenu_map.unset (item);
+        		 }	
+		    });
                
                 main_stack.add (scroll_sub);
 				//Button opening the submenu
