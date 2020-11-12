@@ -22,7 +22,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gtk.Label label;
     private Gtk.Stack stack;
     private Gtk.Box? main_box = null;
-	public int cpt=0; /* count indicators */
+	public int cpt = 0; /* count indicators */
 	
     public MetaIndicator () {
         Object (code_name: "namarupa",
