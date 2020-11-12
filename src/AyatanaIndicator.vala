@@ -327,7 +327,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                 (button as Gtk.ModelButton).text = ((item as Gtk.MenuItem).get_label ().replace ("_", ""));
             });
 
-            button.set_state_flags (state,true);
+            button.set_state_flags (state, true);
 
             var submenu = (item as Gtk.MenuItem).submenu;
 			var sub_list = new Gtk.ListBox ();
