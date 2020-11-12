@@ -216,7 +216,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             button.hide ();
         });
         item.state_flags_changed.connect ((type) => {
-            button.set_state_flags (item.get_state_flags (),true);
+            button.set_state_flags (item.get_state_flags (), true);
         });
     }
 
