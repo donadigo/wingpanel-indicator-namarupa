@@ -79,7 +79,9 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
                 cpt--;
-				if (cpt==0) {switch_stack (false);}  
+				if (cpt == 0) {
+				    switch_stack (false);
+				}  
                 break;
             }
         }
