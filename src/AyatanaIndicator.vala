@@ -285,25 +285,27 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 
 		//RADIO BUTTON
 		if (item_type == ATK_RADIO) {
-					
-			var button= new Gtk.RadioButton.with_label_from_widget(group_radio,label);
-			if (group_radio==null) {group_radio=button;}
-			button.margin = 5;
-			button.set_margin_start(10);
+		    var button = new Gtk.RadioButton.with_label_from_widget (group_radio,label) {
+		       margin = 5,
+		       margin_start = 10
+		    };
+		    if (group_radio == null) {
+		        group_radio = button;
+		    }
 		    
-			button.set_active(active);
+	            button.set_active(active);
 			
-			//do not remove
-            button.clicked.connect (() => {
-                    item.activate ();
-                });
+		    // do not remove
+                  button.clicked.connect (() => {
+                        item.activate ();
+                  });
 			
-			button.activate.connect (() => {
-				item.activate();
-               (item as Gtk.RadioMenuItem).set_active (button.get_active());
-            });
+		    button.activate.connect (() => {
+			item.activate();
+                       (item as Gtk.RadioMenuItem).set_active (button.get_active ());
+                   });
 			
-			return button;
+		    return button;
 		}
 		
         /* convert menuitem to a indicatorbutton */
