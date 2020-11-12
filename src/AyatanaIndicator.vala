@@ -321,7 +321,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 			button = new Gtk.ModelButton();
 			button.text = label;
             if (image != null && image.pixbuf != null) {
-                (button as Gtk.ModelButton).icon= (image.pixbuf);
+                (button as Gtk.ModelButton).icon = (image.pixbuf);
             } 
             (item as Gtk.CheckMenuItem).notify["label"].connect (() => {
                 (button as Gtk.ModelButton).text = ((item as Gtk.MenuItem).get_label ().replace ("_", ""));
