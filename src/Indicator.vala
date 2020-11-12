@@ -181,13 +181,15 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     // TODO: Plug for Namarupa.  
     private void show_settings () {
 		/* temporary used for informations */
-		string msg= cpt.to_string() + " item(s) \n";
-		var msgdial = new Gtk.MessageDialog(null,Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE,
-        msg);
-		msgdial.set_title("Information");
-		msgdial.run();
-		msgdial.destroy(); //dialog without parent =>not perfectly closed
+		string msg = cpt.to_string () + " item(s)\n";
+		var msgdial = new Gtk.MessageDialog (null,
+		                                     Gtk.DialogFlags.MODAL,
+                                                   Gtk.MessageType.INFO,
+                                                   Gtk.ButtonsType.CLOSE,
+                                                   msg);
+		msgdial.set_title (_("Information"));
+		msgdial.run ();
+		msgdial.destroy (); // dialog without parent => not perfectly closed
 
         /*try {
             AppInfo.launch_default_for_uri ("settings://namarupa", null);
