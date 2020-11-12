@@ -22,7 +22,8 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     private Gtk.Label label;
     private Gtk.Stack stack;
     private Gtk.Box? main_box = null;
-
+	public int cpt = 0; /* count indicators */
+	
     public MetaIndicator () {
         Object (code_name: "namarupa",
                 display_name: _("Namarupa"),
@@ -58,8 +59,11 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         if (blacklist.contains (indicator.name_hint ())) {
             return;
         }
-
-        get_widget ();
+		    if (main_box == null) {
+		        init_main_box ();
+		    }
+		cpt++;
+        //get_widget ();
         box.add (indicator);
         box.show_all ();
 
@@ -67,21 +71,25 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
     }
 
     private void delete_entry (Indicator indicator) {
-        get_widget ();
-
-        switch_stack (false);
+        //get_widget ();
 
         foreach (var fbc in box.get_children ()) {
             var child = (Gtk.Widget)fbc;
+			//see what append when two indicators have the same name ? 
             if (child is Indicator && ((Indicator)child).code_name == indicator.code_name) {
                 child.destroy ();
+                cpt--;
+				if (cpt == 0) {
+				    switch_stack (false);
+				}  
                 break;
             }
         }
     }
 
-    public override Gtk.Widget? get_widget () {
-        if (main_box == null) {
+	  private Gtk.Box init_main_box () {
+		/*create an empty box with no entry */
+        
             main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_box.set_size_request (200, -1);
 
@@ -89,35 +97,44 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
             label.sensitive = false;
             label.valign = Gtk.Align.CENTER;
-            label.margin_top = label.margin_bottom = 12;
+            label.margin_top = label.margin_bottom = 2;
             label.margin_start = label.margin_end = 6;
             label.show_all ();
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            box.margin = 6;
+		  	box.margin = 6;
             box.margin_start = 12;
             box.set_spacing (10);
-
+			
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.add_named (box, "box");
             stack.add_named (label, "label");
+            stack.get_style_context ().add_class (Gtk.STYLE_CLASS_SIDEBAR);
             main_box.add (stack);
 
-            switch_stack (false);
+            switch_stack (false); /* label */
 
             var settings_btn = new Gtk.ModelButton ();
             settings_btn.text = _("Settings…");
-            //TODO: settings_btn.clicked.connect (show_settings);
+            settings_btn.clicked.connect (show_settings);
 
             main_box.add (new Wingpanel.Widgets.Separator ());
             main_box.add (settings_btn);
-        }
+        
 
         return main_box;
+	}
+
+    public override Gtk.Widget? get_widget () {
+		if (main_box == null) {
+		    init_main_box ();
+		}
+		return main_box;
     }
 
     private void switch_stack (bool show) {
+		//switch between label "no tray icon" and box vue
         if (show) {
             stack.set_visible_child_name ("box");
         } else {
@@ -137,6 +154,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         foreach (var entry in get_restrictions_from_file (blacklist_file)) {
             blacklist.add (entry);
         }
+		blacklist.add ("nm-applet"); //old network indicator (duplicate)
     }
 
     private string[] get_restrictions_from_file (File file) {
@@ -160,16 +178,25 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         return restrictions;
     }
 
-    // TODO: Plug for Namarupa.
-    /*private void show_settings () {
-        close ();
+    // TODO: Plug for Namarupa.  
+    private void show_settings () {
+		/* temporary used for informations */
+		string msg = cpt.to_string () + " item(s)\n";
+		var msgdial = new Gtk.MessageDialog (null,
+		                                     Gtk.DialogFlags.MODAL,
+                                                   Gtk.MessageType.INFO,
+                                                   Gtk.ButtonsType.CLOSE,
+                                                   msg);
+		msgdial.set_title (_("Information"));
+		msgdial.run ();
+		msgdial.destroy (); // dialog without parent => not perfectly closed
 
-        try {
+        /*try {
             AppInfo.launch_default_for_uri ("settings://namarupa", null);
         } catch (Error e) {
             warning ("Failed to open notifications settings: %s", e.message);
-        }
-    }*/
+        } */
+    }
 
 }
 
