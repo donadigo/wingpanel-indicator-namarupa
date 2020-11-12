@@ -141,7 +141,7 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
                      * the menu is popuped
                      */
                     reloaded = true;
-                    entry.menu.popup_at_widget (icon.parent,  0, 0);        //entry.menu.popdown ();
+                    entry.menu.popup_at_widget (icon.parent, 0, 0);
                 }
 
                 return Gdk.EVENT_PROPAGATE;
