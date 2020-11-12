@@ -59,7 +59,9 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
         if (blacklist.contains (indicator.name_hint ())) {
             return;
         }
-		 if (main_box == null) {init_main_box();}
+		    if (main_box == null) {
+		        init_main_box ();
+		    }
 		cpt++;
         //get_widget ();
         box.add (indicator);
