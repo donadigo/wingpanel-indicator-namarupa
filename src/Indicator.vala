@@ -127,7 +127,9 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 	}
 
     public override Gtk.Widget? get_widget () {
-		if (main_box == null) {init_main_box();}
+		if (main_box == null) {
+		    init_main_box ();
+		}
 		return main_box;
     }
 
