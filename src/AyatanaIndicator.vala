@@ -286,8 +286,8 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
 		//RADIO BUTTON
 		if (item_type == ATK_RADIO) {
 		    var button = new Gtk.RadioButton.with_label_from_widget (group_radio,label);
-		    margin = 5,
-		    margin_start = 10
+		    button.margin = 5;
+		    button.set_margin_start(10);
 		    
 		    if (group_radio == null) {
 		        group_radio = button;
