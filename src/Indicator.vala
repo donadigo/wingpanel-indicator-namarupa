@@ -25,9 +25,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
 	public int cpt = 0; /* count indicators */
 	
     public MetaIndicator () {
-        Object (code_name: "namarupa",
-                display_name: _("Namarupa"),
-                description:_("Ayatana Compatibility Meta Indicator"));
+        Object (code_name: "namarupa");
 
         load_blacklist ();
         indicator_loader = new IndicatorFactory ();
@@ -119,7 +117,7 @@ public class AyatanaCompatibility.MetaIndicator : Wingpanel.Indicator {
             settings_btn.text = _("Settings…");
             settings_btn.clicked.connect (show_settings);
 
-            main_box.add (new Wingpanel.Widgets.Separator ());
+            main_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
             main_box.add (settings_btn);
         
 
