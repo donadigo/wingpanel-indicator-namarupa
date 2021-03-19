@@ -25,11 +25,14 @@ Add /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-servic
 
 Install [this patched indicator-applications debian file](https://github.com/mdh34/elementary-indicators/releases) 
 
-** reboot **  
+**reboot**  
 
 ### Easy install for users 
 
-Install the latest debian file (.deb) try a double-click or use GDebi or dpkg
+Install the latest debian file :
+- Hera(eos5) and previous: com.github.*amd_64.deb 
+- Odin(eos6): com.github.*odin.deb
+try a double-click or use GDebi or dpkg
 
 ### For developers
 
@@ -60,3 +63,4 @@ To install, use ninja install:
 ```bash
 sudo ninja install
 ```
+Reboot 
