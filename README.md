@@ -39,7 +39,7 @@ Install the latest debian file :
 - Hera(eos5) and previous: <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.0_amd64.deb">com.github.*amd_64.deb </a>
 - Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.1_odin.deb">com.github.*odin.deb </a>
   try a double-click or use GDebi or dpkg :
-  <pre>sudo dpkg -i ./com.github.lafydev.donadigo.wingpanel*.deb</pre>
+  <pre>sudo dpkg -i ./com.github.donadigo.wingpanel*.deb</pre>
 
 ### For developers
 
