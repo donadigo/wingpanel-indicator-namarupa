@@ -9,7 +9,8 @@ The name Namarupa is used for the forces at play that govern the Ayatana, in Bud
 ## Before Installation
 
 Version odin (eos6) you need indicator-application:
-```bash  
+
+```bash
 sudo apt-get install indicator-application
 ```
 
@@ -21,36 +22,46 @@ System settings -> "Applications" -> "Startup" -> "Add Startup App…" -> "Type 
 
 Add /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-service as custom command to the auto start applications in the system settings  
 
--  With a patch
+- With a terminal 
+Open Terminal and run the following commands.
+<pre>mkdir -p ~/.config/autostart
+cp /etc/xdg/autostart/indicator-application.desktop ~/.config/autostart/
+sed -i 's/^OnlyShowIn.*/OnlyShowIn=Unity;GNOME;Pantheon;/' ~/.config/autostart/indicator-application.desktop
+</pre><br/>
 
-Install [this patched indicator-applications debian file](https://github.com/mdh34/elementary-indicators/releases) 
 
 **reboot**  
 
-### Easy install for users 
+### Easy install for users
 
 Install the latest debian file :
-- Hera(eos5) and previous: com.github.*amd_64.deb 
-- Odin(eos6): com.github.*odin.deb
-try a double-click or use GDebi or dpkg
+
+- Hera(eos5) and previous: <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.0_amd64.deb">com.github.*amd_64.deb </a>
+- Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.1_odin.deb">com.github.*odin.deb </a>
+  try a double-click or use GDebi or dpkg :
+  <pre>sudo dpkg -i ./com.github.lafydev.wingpanel*.deb</pre>
 
 ### For developers
 
 You'll need the following dependencies:
+
 ```bash
 sudo apt-get install libglib2.0-dev libgranite-dev libindicator3-dev 
 valac gcc meson
 ```
+
 - Version Hera(eos5) and previous :  
-```bash
-sudo apt-get install libwingpanel-2.0-dev
-```
+  
+  ```bash
+  sudo apt-get install libwingpanel-2.0-dev
+  ```
 
 - Version odin(eos6) : 
-```bash  
-sudo apt-get install libwingpanel-dev 
-```
   
+  ```bash
+  sudo apt-get install libwingpanel-dev 
+  ```
+
 Run meson to configure the build environment and then ninja to build:
 
 ```bash
@@ -63,4 +74,5 @@ To install, use ninja install:
 ```bash
 sudo ninja install
 ```
+
 Reboot 
