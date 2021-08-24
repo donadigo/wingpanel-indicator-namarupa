@@ -28,18 +28,21 @@ Open Terminal and run the following commands.
 cp /etc/xdg/autostart/indicator-application.desktop ~/.config/autostart/
 sed -i 's/^OnlyShowIn.*/OnlyShowIn=Unity;GNOME;Pantheon;/' ~/.config/autostart/indicator-application.desktop
 </pre><br/>
-
-
-**reboot**  
+ 
 
 ### Easy install for users
 
 Install the latest debian file :
 
 - Hera(eos5) and previous: <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.0_amd64.deb">com.github.*amd_64.deb </a>
-- Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.1_odin.deb">com.github.*odin.deb </a>
+- Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.3_odin.deb">com.github.*odin.deb </a>
   try a double-click or use GDebi or dpkg :
   <pre>sudo dpkg -i ./com.github.donadigo.wingpanel*.deb</pre>
+ 
+Easy uninstall after easy install:
+<pre>sudo dpkg -r com.github.donadigo.wingpanel-indicator-namarupa</pre>
+reboot or kill wingpanel
+  
 
 ### For developers
 
@@ -75,4 +78,10 @@ To install, use ninja install:
 sudo ninja install
 ```
 
-Reboot 
+Reboot or kill wingpanel
+
+To uninstall with ninja:
+Open a terminal in the build folder.
+<pre>sudo ninja uninstall</pre>
+Version Hera(5) and previous:  <pre>killall wingpanel</pre>
+Version Odin(6): <pre>killall io.elementary.wingpanel</pre>

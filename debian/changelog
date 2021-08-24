@@ -1,3 +1,9 @@
+com.github.donadigo.wingpanel-indicator-namarupa (1.0.2) focal; urgency=medium
+
+  * New release : fix image missing 
+
+ -- lafy <lafy@mailo.com>  Tue, 24 Aug 2021 11:05:59 +0200
+
 com.github.donadigo.wingpanel-indicator-namarupa (1.0.0) bionic; urgency=medium
 
   * Initial release.

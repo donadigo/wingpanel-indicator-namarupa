@@ -333,7 +333,6 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             if (image != null && image.pixbuf != null) {
 				var img= new Gtk.Image.from_pixbuf(image.pixbuf);
 				
-				hbox.spacing = 6;
 				hbox.add(button);
 				hbox.add(img);
 				//Modelbutton = text OR icon not both

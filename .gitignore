@@ -1,3 +1,10 @@
 build/
+debian/.debhelper/
+debian/com.github.donadigo.wingpanel-indicator-namarupa.*
+debian/com.github.donadigo.wingpanel-indicator-namarupa/
+debian/files
+obj-*/
+
+#IDE
 *~
 ~*
