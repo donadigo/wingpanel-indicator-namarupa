@@ -329,8 +329,15 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             }
 			button = new Gtk.ModelButton();
 			button.text = label;
+			var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
             if (image != null && image.pixbuf != null) {
-                button.icon = (image.pixbuf);
+				var img= new Gtk.Image.from_pixbuf(image.pixbuf);
+				
+				hbox.spacing = 6;
+				hbox.add(button);
+				hbox.add(img);
+				//Modelbutton = text OR icon not both
+                //button.icon = (image.pixbuf);
             } 
             ((Gtk.CheckMenuItem)item).notify["label"].connect (() => {
                 button.text = ((Gtk.MenuItem)item).get_label ().replace ("_", "");
@@ -399,8 +406,10 @@ public class AyatanaCompatibility.Indicator : IndicatorButton {
             }
 
             connect_signals (item, button);
-
-            return button;
+			if ((image != null && image.pixbuf != null)) {
+				return hbox;}
+            else {return button;}
+            
         }
 
         return null;
