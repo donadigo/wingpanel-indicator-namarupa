@@ -35,7 +35,7 @@ sed -i 's/^OnlyShowIn.*/OnlyShowIn=Unity;GNOME;Pantheon;/' ~/.config/autostart/i
 Install the latest debian file :
 
 - Hera(eos5) and previous: <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.0_amd64.deb">com.github.*amd_64.deb </a>
-- Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.3_odin.deb">com.github.*odin.deb </a>
+- Odin(eos6): <a href="https://github.com/Lafydev/wingpanel-indicator-namarupa/blob/master/com.github.donadigo.wingpanel-indicator-namarupa_1.0.2_odin.deb">com.github.*odin.deb </a>
   try a double-click or use GDebi or dpkg :
   <pre>sudo dpkg -i ./com.github.donadigo.wingpanel*.deb</pre>
  
